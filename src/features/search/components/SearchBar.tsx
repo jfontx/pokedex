@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback, useMemo } from 'react';
 import { Search, X, Shuffle } from 'lucide-react';
 import { useDebouncedValue, usePokemonNames } from '../hooks';
-import type { PokemonNameEntry } from '../hooks';
+
 import { getSearchSuggestions } from '../utils';
 import { formatName } from '../../pokemon/utils';
 import styles from './SearchBar.module.css';
