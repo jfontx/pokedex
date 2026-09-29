@@ -2,6 +2,7 @@ import { useState, useRef, useCallback, useMemo } from 'react';
 import { Search, X, Shuffle } from 'lucide-react';
 import { useDebouncedValue, usePokemonNames } from '../hooks';
 import type { PokemonNameEntry } from '../hooks';
+import { getSearchSuggestions } from '../utils';
 import { formatName } from '../../pokemon/utils';
 import styles from './SearchBar.module.css';
 
@@ -22,28 +23,7 @@ export function SearchBar({ onSelect }: SearchBarProps) {
   const { data: allNames } = usePokemonNames();
 
   const suggestions = useMemo(() => {
-    if (!allNames || debouncedQuery.length === 0) return [];
-
-    const isNumeric = /^\d+$/.test(debouncedQuery);
-    if (isNumeric) {
-      const num = parseInt(debouncedQuery, 10);
-      return allNames.filter(p => p.id === num).slice(0, MAX_SUGGESTIONS);
-    }
-
-    // Prioritize names that start with the query, then contains
-    const startsWith: PokemonNameEntry[] = [];
-    const contains: PokemonNameEntry[] = [];
-
-    for (const p of allNames) {
-      if (p.name.startsWith(debouncedQuery)) {
-        startsWith.push(p);
-      } else if (p.name.includes(debouncedQuery)) {
-        contains.push(p);
-      }
-      if (startsWith.length + contains.length >= MAX_SUGGESTIONS) break;
-    }
-
-    return [...startsWith, ...contains].slice(0, MAX_SUGGESTIONS);
+    return getSearchSuggestions(allNames ?? [], debouncedQuery, MAX_SUGGESTIONS);
   }, [allNames, debouncedQuery]);
 
   const handleSelect = useCallback(
