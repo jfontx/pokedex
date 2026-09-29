@@ -12,6 +12,7 @@ import { SpritesGallery } from './sections/SpritesGallery';
 import { Moves } from './sections/Moves';
 import { Forms } from './sections/Forms';
 import { SectionNav } from './SectionNav';
+import { NotFoundState } from './NotFoundState';
 import styles from './PokemonDetail.module.css';
 import { useEffect } from 'react';
 
@@ -49,10 +50,13 @@ export function PokemonDetail({ name, onSelect }: PokemonDetailProps) {
 
   if (isError) {
     const is404 = error?.message?.includes('404');
+    if (is404) {
+      return <NotFoundState query={name} onSelect={onSelect} />;
+    }
     return (
       <ErrorState
-        message={is404 ? `Pokémon "${name}" not found.` : 'Failed to load Pokémon data.'}
-        onRetry={is404 ? undefined : () => refetch()}
+        message="Failed to load Pokémon data."
+        onRetry={() => refetch()}
       />
     );
   }
