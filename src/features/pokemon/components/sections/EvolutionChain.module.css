@@ -1,0 +1,106 @@
+.section {
+  animation: fadeInUp 0.4s ease 0.6s both;
+}
+
+.tree {
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+  padding: var(--space-md) 0;
+}
+
+.chain {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.stageGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.trigger {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.arrow {
+  color: var(--color-text-muted);
+}
+
+.triggerText {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.triggerDetail {
+  display: block;
+  font-size: 0.65rem;
+  color: var(--color-text-muted);
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-sm);
+  border-radius: var(--radius-lg);
+  border: 2px solid transparent;
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stage:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent);
+}
+
+.current {
+  border-color: var(--accent);
+  background: var(--accent-glow);
+}
+
+.sprite {
+  width: 72px;
+  height: 72px;
+  image-rendering: pixelated;
+}
+
+.stageName {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  text-transform: capitalize;
+}
+
+.branches {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.linear {
+  display: flex;
+  align-items: center;
+}
+
+.noEvo {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-style: italic;
+  padding: var(--space-lg);
+}
+
+.error {
+  color: var(--stat-low);
+  font-size: var(--text-sm);
+}

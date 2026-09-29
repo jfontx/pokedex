@@ -1,0 +1,98 @@
+.section {
+  animation: fadeInUp 0.4s ease 0.2s both;
+}
+
+.statsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.statRow {
+  display: grid;
+  grid-template-columns: 80px 45px 1fr;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.statLabel {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-align: right;
+}
+
+.statValue {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  text-align: right;
+}
+
+.barContainer {
+  height: 10px;
+  background: var(--color-surface-hover);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.total {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-border);
+}
+
+.totalLabel {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.totalValue {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-lg);
+  color: var(--accent);
+}
+
+/* ── Radar Chart ── */
+
+.radarContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-xl);
+}
+
+.radar {
+  width: 100%;
+  max-width: 280px;
+}
+
+.radarRing {
+  fill: none;
+  stroke: var(--color-border);
+  stroke-width: 0.5;
+}
+
+.radarFill {
+  fill: var(--accent-glow);
+  stroke: var(--accent);
+  stroke-width: 2;
+  transition: opacity 0.6s ease 0.4s;
+}
+
+.radarLabel {
+  font-size: 9px;
+  fill: var(--color-text-secondary);
+  font-family: var(--font-display);
+  font-weight: 600;
+}

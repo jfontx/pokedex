@@ -4,6 +4,7 @@ import { SearchBar, RecentSearches, LandingScreen } from '../features/search';
 import { ThemeToggle } from '../components';
 import { useLocalStorage } from '../hooks';
 import { usePokemon } from '../features/pokemon/hooks';
+import { PokemonDetail } from '../features/pokemon/components/PokemonDetail';
 import styles from './App.module.css';
 
 const MAX_RECENT = 6;
@@ -112,10 +113,7 @@ export function App() {
               </button>
             </div>
 
-            {/* Pokémon detail will be rendered here in Phase 6 */}
-            <div className={styles.placeholder}>
-              <p>Loading Pokémon detail for: <strong>{selectedPokemon}</strong></p>
-            </div>
+            <PokemonDetail name={selectedPokemon} onSelect={handleSelectPokemon} />
           </div>
         ) : (
           <div className={styles.landing}>

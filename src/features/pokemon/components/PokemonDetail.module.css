@@ -1,0 +1,9 @@
+.container {
+  animation: fadeIn 0.4s ease;
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xl);
+}
