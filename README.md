@@ -1,5 +1,10 @@
 # Pokédex
 
+
+## Deployed link page:
+https://jfontx.github.io/pokedex/
+
+##
 A beautiful, animated, and fully-featured Pokédex web application built with React, TypeScript, and Vite. It consumes the public [PokéAPI](https://pokeapi.co/) to provide comprehensive information about every Pokémon, including base stats, type matchups, evolution chains, and more.
 
 ## Features
