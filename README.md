@@ -1,57 +1,68 @@
-# Pokédex
-
+# Pokédex Web Application
 
 ## Deployed link page:
 https://jfontx.github.io/pokedex/
 
-##
-A beautiful, animated, and fully-featured Pokédex web application built with React, TypeScript, and Vite. It consumes the public [PokéAPI](https://pokeapi.co/) to provide comprehensive information about every Pokémon, including base stats, type matchups, evolution chains, and more.
+## Project Overview
+This project is a comprehensive, production-ready Pokédex web application built to consume the public PokéAPI. It is designed to allow users to search, explore, and analyze data for any Pokémon. The application surfaces detailed statistics, including base stats, type matchups (with complex dual-type effectiveness computation), branching evolution chains, and abilities.
 
-## Features
+The system is optimized for performance and accessibility, featuring dynamic UI adaptations (such as CSS token injection based on data payloads) and gracefully handling loading and error states.
 
-- 🔍 **Fuzzy Search & Autocomplete**: Quickly find Pokémon by name or Pokédex number.
-- 🎨 **Dynamic Theming**: The UI adapts its accent colors based on the selected Pokémon's primary type.
-- 🌓 **Light & Dark Mode**: Full support for system preferences and manual toggling, without initial load flashes.
-- ✨ **Smooth Animations**: Page transitions and interactive elements powered by Framer Motion, with full respect for `prefers-reduced-motion`.
-- 📱 **Responsive Design**: Carefully crafted layouts that look stunning on mobile, tablet, and desktop devices.
-- 📊 **Detailed Pokémon Info**:
-  - Hero section with official artwork and flavor text.
-  - Base stats with interactive progress bars.
-  - Physical attributes (height, weight, gender ratio).
-  - Abilities (including hidden ones).
-  - Type effectiveness calculator (accounting for dual types).
-  - Evolution chain visualizer (supporting branching evolutions like Eevee).
-  - Sprite gallery (default, shiny, back, female variations).
-  - Learnable moves list.
+## Architecture & Technical Decisions
 
-## Tech Stack
+The codebase strictly follows a **Feature-Based Architecture**. Rather than grouping files by type (e.g., all components together, all hooks together), the repository is divided into discrete, independent domain features (`search` and `pokemon`). This approach ensures high cohesion and scalability:
 
-- **Framework**: [React 19](https://react.dev/)
-- **Build Tool**: [Vite](https://vitejs.dev/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Data Fetching**: [TanStack Query](https://tanstack.com/query/latest)
-- **Animations**: [Motion](https://motion.dev/) (formerly Framer Motion)
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Testing**: [Vitest](https://vitest.dev/)
-- **Linting**: [Oxlint](https://oxc.rs/docs/guide/usage/linter.html)
-- **Styling**: Vanilla CSS Modules with a custom design token system.
+- **Feature Modules**: Each feature folder contains its own internal components, custom React hooks, utility functions, and TypeScript definitions.
+- **Shared Infrastructure**: Global design tokens, general utility hooks (like `useLocalStorage`), and highly reusable UI components (like loader and error states) reside in the root `src/` directory.
+- **Client-Side Routing**: The application bypasses heavy third-party routing libraries by utilizing the native HTML5 History API (`window.history.pushState`) combined with URL query parameters for a lightweight, deeply-linkable state management system.
+- **Asynchronous State Management**: Data fetching, caching, synchronization, and background updates are managed via TanStack Query.
 
-## Setup & Installation
+## Core Technologies
 
-1. Make sure you have Node.js installed (v18 or higher recommended).
-2. Install the dependencies:
+- **Framework**: React 19
+- **Language**: TypeScript (Strict Mode)
+- **Build Tooling**: Vite
+- **Data Fetching**: TanStack Query (React Query)
+- **Animation Engine**: Motion (Framer Motion)
+- **Testing**: Vitest
+- **Linting**: Oxlint
+- **Styling**: Vanilla CSS Modules (incorporating a custom token-based design system)
+
+## External Integrations (API)
+
+This application is heavily reliant on the **[PokéAPI](https://pokeapi.co/docs/v2)**. Specifically, it integrates with:
+1. `/api/v2/pokemon/{id or name}`: Core metadata, sprites, base stats, types, and abilities.
+2. `/api/v2/pokemon-species/{id or name}`: Evolutionary chain references, flavor text entries, and physical genus data.
+3. `/api/v2/evolution-chain/{id}`: Recursive evolution trees mapped and parsed locally to support branching evolutions.
+4. `/api/v2/type/{id or name}`: Damage relations utilized by the custom type-effectiveness computation algorithm.
+
+## Installation & Setup
+
+### Prerequisites
+- Node.js (v18 or higher recommended)
+- npm
+
+### Local Environment
+1. Clone the repository and navigate into the directory.
+2. Install the necessary dependencies:
    ```bash
    npm install
    ```
+3. Start the local development server:
+   ```bash
+   npm run dev
+   ```
+4. Build the application for production:
+   ```bash
+   npm run build
+   ```
+5. Run the unit test suite:
+   ```bash
+   npm run test
+   ```
 
-## Available Scripts
+## Deployment
 
-- `npm run dev`: Starts the Vite development server.
-- `npm run build`: Compiles TypeScript and builds the production bundle.
-- `npm run preview`: Bootstraps a local web server that serves the production build.
-- `npm run lint`: Runs Oxlint to catch errors and enforce code quality.
-- `npm run test`: Runs the Vitest test suite for pure utilities.
+The application is configured for Continuous Deployment via **GitHub Actions**. 
 
-## Architecture
-
-This project follows a strict **Feature-Based Architecture**. Code is divided into domains (`pokemon`, `search`) that contain their own components, hooks, utils, and types, making the codebase scalable and easy to navigate. Shared components and hooks reside in the root `src/` directory.
+Any push to the `main` branch automatically triggers the `.github/workflows/deploy.yml` pipeline. This workflow installs dependencies, runs the Vite build process, and securely uploads the resulting static `dist` artifacts directly to the `github-pages` environment. No manual branch management or local builds are required to update the live environment.
