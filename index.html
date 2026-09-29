@@ -10,6 +10,20 @@
     <title>Pokédex</title>
   </head>
   <body>
+    <script>
+      (function() {
+        try {
+          var stored = localStorage.getItem('pokedex-theme');
+          var theme;
+          if (stored) {
+            theme = JSON.parse(stored);
+          } else {
+            theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/app/main.tsx"></script>
   </body>
